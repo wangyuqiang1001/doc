@@ -1,0 +1,8 @@
+index-->type-->doucument-->filed
+同种类型的表-->具体类型的表-->一行数据--->一个字段
+mapping
+相当于表结构
+java和essearch结合的方式:
+(1)使用TransprotClient
+(2)使用restCliet
+(3)使用spring-data-essearch
