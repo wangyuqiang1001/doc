@@ -22,4 +22,23 @@ where id=#{id} and version=#{version};
 
 
 
+四： cookie和session的联系和区别
+cookie服务器端生成，保存在客户端中，安全性较差， 可以由客户端禁用，一般用来保存用户账号密码的加密信息，
+客户端可以禁用cookie，cookie中还可以保存sessionID,用来标志用户，因为http是无状态的， 而为了要标记用户以及
+具体权限或者等信息，就使用cookie加sesssion结合，来存放用户信息。避免每次访问都生成一个session，在调用
+request.getsession()的时候生成session,内部实现实际是一个线程安全的容器，然后服务器自身会将这个sessionID写入
+cookie中返回给客户端。这种在单机 模式中是没有问题的，但是现在一般一个服务使用集群的话，因为 session是依赖于
+tomcat实例的。在不同的tomcat中，比如A用户这个请求第一次访问了服务器A，第二次访问了服务器B,这样会导致在服务器
+中找不到这个session实例，较为合适的解决办法一般有几种，(1)将session保存到第三缓存，比如redis.或者memerche中，
+(2)基于tomcat的session服务， 也就是所有的tomcat实例都拥有所有的session信息，个人觉得不合适，因为总的来说这样
+对内存消耗太大。（3）就是nginx基于 ip hash ,不同用户的请求，会经过hash算法到同一个服务器上，但是这种方式貌似
+也不好，如果这个节点挂了呢。那这个用户不是玩完了。其实无论是session+cookie或者是现在项目中使用的基于token验证方式
+的jwt总的来说都是为了解决http无状态这个问题，即如何更好的标志用户请求，基于token方式的话，很显然，可用性好，不比
+再为 session共享等问题烦扰，直接基于token验证，这个规则在所有的节点都是一样的。
+五：跨域问题
+
+
+
+
+
 
