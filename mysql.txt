@@ -45,6 +45,14 @@ mylsam采用表锁,innodb支持表锁和行级锁，默认为行级锁
 优点:行数据变小，减少IO,有利于简化表的结构。
 缺点:主键会出现冗余，需要管理冗余列，同时垂直分表是使得数据库事务变得复杂。
 水平分表，即将分成若干的小表，每个表数据相同。
+8:索引的常用语句:
+ALTER TABLE `user` ADD INDEX uniqueIndexName4(user_name,password);
+
+CREATE INDEX uniqueName5 on `user`(user_name,password);
+
+DROp INDEX  uniqueIndexName3 on `user`;
+
+SHOW INDEX FROM `user`;
 
 
 
